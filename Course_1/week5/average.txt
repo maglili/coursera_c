@@ -1,0 +1,44 @@
+#include <stdio.h>
+
+int main(void)
+{
+    // Open file
+    FILE *file = fopen("elephant_seal_data.txt", "r");
+    if (file == NULL)
+    {
+        printf("Error opening file");
+        return 1;
+    }
+
+    // Read file character by character
+    char ch;
+    int num = 0;
+    int total_nums = 0;
+    int array[1000]; 
+
+    while ((ch = getc(file)) != EOF)
+    {
+        if (ch >47 && ch < 58)
+        {
+            num *= 10;
+            num += (int)ch - 48;
+        }
+        else if (num != 0)
+        {
+            array[total_nums] = num;
+            total_nums++;
+            num = 0;
+        }
+    }
+    printf("total numbers: %i\n", total_nums);
+
+    // Calc average
+    float sum = 0;
+    for (int i = 0; i < total_nums; i++)
+    {
+        sum += array[i];
+    }
+
+    printf("average: %f\n", sum / total_nums);
+    return 0;
+}
